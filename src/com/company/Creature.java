@@ -31,7 +31,13 @@ public class Creature {
 
 
     public void Ouille(int damages) {
-        life = life - damages ;
+        if (isWeak == true) {
+            life = life - damages*2;
+        }
+        if (isResistant == true) {
+            life = life - damages/2;
+        }
+        else life = life - damages
     }
 
    public void Levelup () {
