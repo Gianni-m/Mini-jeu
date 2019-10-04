@@ -2,15 +2,15 @@ package com.company;
 
 public class Fight {
     public Creature myCreature ;
-    public Creature ennemyCreature ;
+    public Creature enemyCreature ;
 
 
 
 
-    public Fight(Creature myCreature, Creature ennemyCreature)
+    public Fight(Creature myCreature, Creature enemyCreature)
     {
         this.myCreature = myCreature ;
-        this.ennemyCreature = ennemyCreature ;
+        this.enemyCreature = enemyCreature ;
     }
 
 
@@ -18,39 +18,42 @@ public class Fight {
 
     public String startfight() {
         int myInitiative = myCreature.getSpeed() ;
-        int ennemyInitiative = ennemyCreature.getSpeed() ;
+        int enemyInitiative = enemyCreature.getSpeed() ;
 
-        while(isAlive() == true ) {
-            System.out.println(myCreature.getLife() + " | " + ennemyCreature.getLife());
-            if (myInitiative > ennemyInitiative) {
-                ennemyCreature.Ouille(myCreature.getDamages());
+        while(isAlive() ) {
+            System.out.println(myCreature.getLife() + " | " + enemyCreature.getLife());
+            if (myInitiative > enemyInitiative) {
+                enemyCreature.Ouille(myCreature.getForce(), myCreature.getType());
                 myInitiative = 0 ;
-                ennemyInitiative = ennemyCreature.getSpeed() ;
+                enemyInitiative = enemyCreature.getSpeed() ;
                 System.out.println("First");
 
             }
             else {
-                myCreature.Ouille(ennemyCreature.getDamages());
-                ennemyInitiative = 0 ;
+                myCreature.Ouille(enemyCreature.getForce() , enemyCreature.getType());
+                enemyInitiative = 0 ;
                 myInitiative = myCreature.getSpeed() ;
                 System.out.println("Second");
 
             }
 
         }
-        System.out.println(myCreature.getLife() + " | " + ennemyCreature.getLife());
+        System.out.println(myCreature.getLife() + " | " + enemyCreature.getLife());
 
         if (myCreature.getLife() <= 0 ) {
             return "T nul " ;
         }
-        else return "GG" ;
+        else{
+            myCreature.Levelup();
+            System.out.println (myCreature.getName() + "\n est monté au niveau " + myCreature.getLife() ) ;
+            return "GG" ;}
 
     }
 
 
 
     private Boolean isAlive() {
-        if (myCreature.getLife() > 0 && ennemyCreature.getLife() > 0) {
+        if (myCreature.getLife() > 0 && enemyCreature.getLife() > 0) {
             return true ;
         }
 

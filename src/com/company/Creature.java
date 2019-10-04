@@ -1,15 +1,15 @@
 package com.company;
 
 public class Creature {
-    private Espece espece ;
     private int level ;
     private int force ;
     private int life ;
     private int speed ;
+    private int forceMult ;
     private String name ;
     private Type type;
 
-    public Creature(int level , int life , String name , int force , int speed, Type type  )
+    public Creature(int level , int life , String name , int force, int forceMult , int speed, Type type  )
     {
 
         this.level = level;
@@ -18,8 +18,10 @@ public class Creature {
         this.force = force;
         this.speed = speed;
         this.type = type;
+        this.forceMult = forceMult ;
 
     }
+    public String getName() { return this.name ; }
 
     public int getLife() {
         return this.life ;
@@ -29,24 +31,27 @@ public class Creature {
         return this.speed ;
     }
 
+    public Type getType() {return this.type ; }
 
-    public void Ouille(int damages) {
-        if (isWeak == true) {
-            life = life - damages*2;
+    public int getForce() { return this.force ;}
+
+
+    public void Ouille(int force , Type type ) {
+        if (this.type.isWeak(type) ) {
+            life = life - force*2;
         }
-        if (isResistant == true) {
-            life = life - damages/2;
+        if (this.type.isResistant(type) ) {
+            life = life - force/2;
         }
-        else life = life - damages
+        else life = life - force;
     }
 
    public void Levelup () {
-        level = level + 1 ;
+        level++ ;
+        force = force + forceMult ;
    }
 
-   public int getDamages() {
-        return force * level;
-   }
+
 
 
 
